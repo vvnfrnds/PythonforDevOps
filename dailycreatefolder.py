@@ -1,2 +1,2 @@
 import os
-os.mkdir('D:/DevOpsLearning/11. PYTHON/Dailyscripts/day2')
+os.mkdir('D:/DevOpsLearning/11. PYTHON/Python for DevOps/day3')
