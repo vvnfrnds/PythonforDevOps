@@ -1,0 +1,10 @@
+import sys
+
+type = sys.argv[1] 
+
+if type == "t2.xlarge":
+    print("Costly EC Instance")
+elif type == "t2.mini":
+    print("Very affordable")
+else:
+    print("Free version")
