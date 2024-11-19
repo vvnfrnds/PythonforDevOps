@@ -6,48 +6,22 @@ DevOps engineers often use "while" loops in various real-time use cases to autom
 
    DevOps engineers often use "while" loops in CI/CD pipelines to monitor the deployment status of applications. They can create a "while" loop that periodically checks the status of a deployment or a rolling update until it completes successfully or fails. For example, waiting for a certain number of pods to be ready in a Kubernetes deployment:
 
-   ```import subprocess
-import time
-
-# Loop until the deployment is ready
-while True:
-    # Run the kubectl command and capture the output
-    result = subprocess.run(["kubectl", "get", "deployment/myapp"], capture_output=True, text=True)
-    
-    # Check if the output contains "0/1" (meaning the app is not fully ready)
-    if "0/1" not in result.stdout:
-        break
-    
-    # If the app is not ready, print a message and wait
-    print("Waiting for myapp to be ready...")
-    time.sleep(10)
+   ```bash
+   while kubectl get deployment/myapp | grep -q 0/1; do
+       echo "Waiting for myapp to be ready..."
+       sleep 10
+   done
    ```
 
 2. **Provisioning and Scaling Cloud Resources:**
 
    When provisioning or scaling cloud resources, DevOps engineers may use "while" loops to wait for the resources to be fully provisioned and ready. For instance, waiting for an Amazon EC2 instance to become available:
 
-   ```import subprocess
-import time
-
-# EC2 instance ID
-instance_id = "i-1234567890abcdef0"
-
-# Loop until the EC2 instance is running
-while True:
-    # Run the AWS CLI command to describe the instance status
-    result = subprocess.run(
-        ["aws", "ec2", "describe-instance-status", "--instance-ids", instance_id],
-        capture_output=True, text=True
-    )
-    
-    # Check if the instance is running
-    if "running" in result.stdout:
-        break
-    
-    # If the instance is not running, print a message and wait
-    print("Waiting for the EC2 instance to be running...")
-    time.sleep(10)
+   ```bash
+   while ! aws ec2 describe-instance-status --instance-ids i-1234567890abcdef0 | grep -q "running"; do
+       echo "Waiting for the EC2 instance to be running..."
+       sleep 10
+   done
    ```
 
 3. **Log Analysis and Alerting:**
